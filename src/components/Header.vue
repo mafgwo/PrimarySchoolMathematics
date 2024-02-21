@@ -1,6 +1,6 @@
 <template>
   <header>
-    <span class="title">程序设置</span>
+    <span class="title">口算题卡生成工具</span>
     <span class="sub-title">Primary School Mathematics 小学数学口算题</span>
   </header>
 </template>

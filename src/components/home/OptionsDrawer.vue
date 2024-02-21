@@ -12,6 +12,25 @@
         <ElCheckbox v-model="formData.enableBrackets" />
       </ElFormItem>
 
+      <ElFormItem label="启用标题序号">
+        <ElCheckbox v-model="formData.enableTitleNo" />
+      </ElFormItem>
+
+      <ElFormItem label="启用题目序号">
+        <ElCheckbox v-model="formData.enableQuestionNo" />
+      </ElFormItem>
+
+      <el-form-item prop="paperTitle">
+        <el-row :gutter="24">
+          <el-col :span="18">
+            <el-input v-model.number="formData.lineSpaceNum">
+              <template #prepend>口算题题目行距</template>
+              <template #append>倍</template>
+            </el-input>
+          </el-col>
+        </el-row>
+      </el-form-item>
+
       <ElFormItem label="加法设置">
         <el-radio-group v-model="formData.carry">
           <el-radio-button label="1">随机进位</el-radio-button>

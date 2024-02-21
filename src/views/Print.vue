@@ -1,14 +1,14 @@
 <template>
   <div :class="{ 'preview': !isPrinting }">
     <div class="A4">
-      <div v-for="sheet in sheets" class="sheet padding-10mm" :class="{ 'sheet-shadow': !isPrinting }">
+      <div v-for="(sheet, idx) in sheets" class="sheet" :class="{ 'sheet-shadow': !isPrinting }">
         <div class="mt-12 mb-12">
-          <h1>{{ sheet.paperTitle }}</h1>
+          <h1>{{ sheet.paperTitle }} <span v-if="appStore.formDataValue.enableTitleNo">{{ idx + 1 }}</span></h1>
           <h3>{{ sheet.paperSubTitle }}</h3>
         </div>
         <div class="row">
-          <div v-for="col in sheet.columnsOfPaper" :style="`width: ${sheet.colWidth}%;`">
-            <p :style="`margin-bottom: ${sheet.rowHeight}`" v-for="f in col">{{ f }}</p>
+          <div v-for="(col, cidx) in sheet.columnsOfPaper" :style="`width: ${sheet.colWidth}%;`">
+            <p class="p-item" :style="`margin-bottom: ${sheet.rowHeight}`" v-for="(f, fidx) in col"><CircleNumber v-if="appStore.formDataValue.enableQuestionNo" :num="showNum(sheet.columnsOfPaper, cidx, fidx)"></CircleNumber> {{ f }}</p>
           </div>
         </div>
       </div>
@@ -24,6 +24,7 @@
 import { computed, nextTick, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAppStore } from "@/stores/app";
+import CircleNumber from "@/components/home/CircleNumber.vue";
 
 
 /**
@@ -44,7 +45,8 @@ const sheets = computed(() => {
 
     const numberOfCols = formulas.length / numberOfPagerColumns
     const colWidth = 100 / numberOfPagerColumns
-    const rowHeight = solution == '0' ? '16px' : '160px'
+    const lineSpaceNum = appStore.formDataValue.lineSpaceNum || 1
+    const rowHeight = solution == '0' ? (lineSpaceNum * 18 + 'px') : '160px'
 
     let columnsOfPaper = [];
     let index = 0
@@ -93,6 +95,18 @@ const print = () => {
   nextTick(() => {
     window.print()
   })
+}
+
+const showNum = (columnsOfPaper, cidx, fidx) => {
+  let count = 0;
+  // 如果当前列不是第一列，还需要加上前面所有列的算式数
+  if (cidx > 0) {
+    for (let m = 0; m < cidx; m++) {
+      count += columnsOfPaper[m].length;
+    }
+  }
+  count += fidx + 1;
+  return count;
 }
 </script>
 
@@ -154,6 +168,9 @@ const print = () => {
 .row {
   display: flex;
   width: 100%;
+  .p-item {
+    font-size: 20px;
+  }
 }
 
 .col33 {

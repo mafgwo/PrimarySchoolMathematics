@@ -59,14 +59,17 @@ const formData = ref({
   numberOfFormulas: 30, // 口算题数量
   whereIsResult: '0', // 题型设置
   enableBrackets: false, // 启用括号
+  enableQuestionNo: true, // 启用题目序号
+  enableTitleNo: true, // 启用标题序号
+  lineSpaceNum: 1, // 行距倍数
   carry: '1',
   abdication: '1',
   remainder: '2',
   solution: '0', // 解题方式
   numberOfPapers: 3, // 试卷数量
   numberOfPagerColumns: 3, // 试卷列数
-  paperTitle: '小学生口算题', // 试卷标题
-  paperSubTitle: '姓名：__________ 日期：____月____日 时间：________ 对题：____道', // 试卷副标题
+  paperTitle: '口算题卡', // 试卷标题
+  paperSubTitle: '班级：__________ 姓名：__________ 日期：____月____日 时间：________ 错题：____道', // 试卷副标题
   // 试题格式
   // min 算数项最小值 max 算数项最大值 operators 与上一步算数项使用的运算符号
   // 第一个算数项由于没有上一步故设置为null
@@ -96,6 +99,9 @@ onMounted(async () => {
   formData.value.numberOfFormulas = config.numberOfFormulas
   formData.value.whereIsResult = config.whereIsResult
   formData.value.enableBrackets = config.enableBrackets
+  formData.value.enableQuestionNo = config.enableQuestionNo
+  formData.value.enableTitleNo = config.enableTitleNo,
+  formData.value.lineSpaceNum = config.lineSpaceNum,
   formData.value.carry = config.carry
   formData.value.abdication = config.abdication
   formData.value.remainder = config.remainder
@@ -133,6 +139,9 @@ const selectedConfiguration = (configuration) => {
   formData.value.numberOfFormulas = config.numberOfFormulas
   formData.value.whereIsResult = config.whereIsResult
   formData.value.enableBrackets = config.enableBrackets
+  formData.value.enableQuestionNo = config.enableQuestionNo
+  formData.value.enableTitleNo = config.enableTitleNo,
+  formData.value.lineSpaceNum = config.lineSpaceNum,
   formData.value.carry = config.carry
   formData.value.abdication = config.abdication
   formData.value.remainder = config.remainder
@@ -163,7 +172,7 @@ const generate = () => {
   }
 
   const papers = createFormulasGenerator(toRaw(unref(formData)), toRaw(unref(paperList)))
-  appStore.navigateToPrint(router, formData.value.fileNameGeneratedRule == fileNameGeneratedRuleEnum.baseOnTitleAndIndex.key ? formData.value.paperTitle : "", papers)
+  appStore.navigateToPrint(router, formData.value.fileNameGeneratedRule == fileNameGeneratedRuleEnum.baseOnTitleAndIndex.key ? formData.value.paperTitle : "", papers, formData.value)
   paperList.value = []
 }
 </script>
