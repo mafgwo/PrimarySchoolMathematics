@@ -1,5 +1,5 @@
 <template>
-  <el-drawer v-model="currentVisible" size="50%" title="其他程序参数设置" :before-close="handleClose">
+  <el-drawer v-model="currentVisible" size="60%" title="其他程序参数设置" :before-close="handleClose">
     <ElForm ref="refForm" :model="formData" :rules="formRules">
       <ElFormItem label="题型设置">
         <el-radio-group v-model="formData.whereIsResult">
@@ -20,16 +20,9 @@
         <ElCheckbox v-model="formData.enableQuestionNo" />
       </ElFormItem>
 
-      <el-form-item prop="paperTitle">
-        <el-row :gutter="24">
-          <el-col :span="18">
-            <el-input v-model.number="formData.lineSpaceNum">
-              <template #prepend>口算题题目行距</template>
-              <template #append>倍</template>
-            </el-input>
-          </el-col>
-        </el-row>
-      </el-form-item>
+      <ElFormItem label="口算题题目行距(倍)">
+        <el-input-number v-model="formData.lineSpaceNum" :precision="1" :step="0.1" :max="10" />
+      </ElFormItem>
 
       <ElFormItem label="加法设置">
         <el-radio-group v-model="formData.carry">
