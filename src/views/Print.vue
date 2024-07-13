@@ -2,7 +2,7 @@
   <div :class="{ 'preview': !isPrinting }">
     <div class="A4">
       <div v-for="(sheet, idx) in sheets" class="sheet" :class="{ 'sheet-shadow': !isPrinting }">
-        <div class="mt-12 mb-12">
+        <div class="title mt-12 mb-12">
           <h1>{{ sheet.paperTitle }} <span v-if="appStore.formDataValue.enableTitleNo">{{ idx + 1 }}</span></h1>
           <h3>{{ sheet.paperSubTitle }}</h3>
         </div>
@@ -119,8 +119,12 @@ const showNum = (columnsOfPaper, cidx, fidx) => {
   // height: 100vh;
 }
 
+.title {
+  text-align: center; /* Center the title */
+}
+
 .A4 {
-  text-align: center;
+  text-align: left;
 }
 
 .sheet {
@@ -168,6 +172,8 @@ const showNum = (columnsOfPaper, cidx, fidx) => {
 .row {
   display: flex;
   width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
   .p-item {
     font-size: 20px;
   }

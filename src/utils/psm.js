@@ -297,9 +297,9 @@ function getPSMstr(formulas, symbols, step, is_bracket) {
         const k = getRandomBracket(step); // 获得一个括号起始指针
         for (let i = 0; i < 2; i++) {
             if (i === 0) {
-                formulas.splice(k + 4 * i, 0, "(");
+                formulas.splice(k + 4 * i, 0, "( ");
             } else {
-                formulas.splice(k + 4 * i, 0, ")");
+                formulas.splice(k + 4 * i, 0, " )");
             }
         }
     }
@@ -334,9 +334,9 @@ function getRandomBracket(step) {
  */
 function getXStepstr(src, is_result) {
     if (is_result == 0) {
-        return repSymStr(src) + "=";
+        return repSymStr(src) + " = ";
     } else if (is_result == 1) {
-        return getRandomItem(repSymStr(src) + "=" + eval(src));
+        return getRandomItem(repSymStr(src) + " = " + eval(src));
     } else {
         throw new Error("is_result求结果，求算数项参数设置错误！");
     }
@@ -380,13 +380,13 @@ function getRandomItem(sr) {
  */
 function getSymbol(sym) {
     if (sym == 1) {
-        return "+";
+        return " + ";
     } else if (sym == 2) {
-        return "-";
+        return " - ";
     } else if (sym == 3) {
-        return "*";
+        return " * ";
     } else if (sym == 4) {
-        return "/";
+        return " / ";
     }
 }
 
