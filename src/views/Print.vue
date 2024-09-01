@@ -46,7 +46,7 @@ const sheets = computed(() => {
     const numberOfCols = formulas.length / numberOfPagerColumns
     const colWidth = 100 / numberOfPagerColumns
     const lineSpaceNum = appStore.formDataValue.lineSpaceNum || 1
-    const rowHeight = solution == '0' ? (lineSpaceNum * 18 + 'px') : '160px'
+    const rowHeight = solution == '0' ? (lineSpaceNum * 18 + 'px') : '240px'
 
     let columnsOfPaper = [];
     let index = 0
